@@ -90,6 +90,7 @@
 Это [правило именования констант, которые не "deeply immutable"](https://google.github.io/styleguide/javaguide.html#s5.2.4-constant-names), те если их содержимое можно изменить.
 
 #### Apply 1_6_logging_config.patch
+#### Последние версии _logback / slf4j_ не работают с Java 8, понизил версии до совместимых с ней. Поднимем на 5м занятии при миграции на JDK 17+
 
 - [Java Logging: история кошмара](http://habrahabr.ru/post/113145/)
 - [Project dependencies for logging](https://www.slf4j.org/manual.html#projectDep)
