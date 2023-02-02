@@ -75,6 +75,8 @@
 ### 5. [Servlet API. Apache Tomcat. JSP](lesson01/tomcat_servlet_war.md)</a>
 
 ### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 6. [Логирование](https://www.youtube.com/watch?v=mo8z3zRVV1E)
+#### Последние версии _logback / slf4j_ не работают с JDK 8, понизил версии до совместимых с ней. Поднимем на 5м занятии при миграции на JDK 17+
+
 #### Apply 1_5_simple_logging.patch
  
 - [Зачем нужно логирование](https://javarush.ru/groups/posts/2293-zachem-nuzhno-logirovanie)
@@ -90,7 +92,6 @@
 Это [правило именования констант, которые не "deeply immutable"](https://google.github.io/styleguide/javaguide.html#s5.2.4-constant-names), те если их содержимое можно изменить.
 
 #### Apply 1_6_logging_config.patch
-#### Последние версии _logback / slf4j_ не работают с Java 8, понизил версии до совместимых с ней. Поднимем на 5м занятии при миграции на JDK 17+
 
 - [Java Logging: история кошмара](http://habrahabr.ru/post/113145/)
 - [Project dependencies for logging](https://www.slf4j.org/manual.html#projectDep)
