@@ -181,8 +181,14 @@ Java Enterprise Online Project
 >  - основы JavaScript необходимы для понимания проекта, начиная с 8-го занятия
 
 ### Полезные ресурсы
-#### HTML, JavaScript, CSS 
-- [Basic HTML and HTML5](https://learn.freecodecamp.org/responsive-web-design/basic-html-and-html5/say-hello-to-html-elements/)
+#### HTML
+- [Основы HTML от mozilla](https://developer.mozilla.org/ru/docs/Learn/Getting_started_with_the_web/HTML_basics)
+- [Основы HTML от webref](https://webref.ru/course/html-basics)
+- [Учебник HTML для начинающих](https://msiter.ru/tutorials/html-nachalnogo-urovnya)
+- [HTML для чайников](https://site-do.ru/html/)
+- [Основы HTML (видео от учеников JavaRush)](https://www.youtube.com/watch?v=BdsA7VCLRc8)
+    
+#### Web, JavaScript, CSS    
 - [Справочник по WEB](https://developer.mozilla.org/ru/)
 - [Видео по WEB-технологиям](https://www.youtube.com/user/WebMagistersRu/playlists)
 - [Изучение JavaScript в одном видео уроке за час](https://www.youtube.com/watch?v=QBWWplFkdzw)
