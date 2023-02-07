@@ -188,7 +188,8 @@ Java Enterprise Online Project
 - [HTML для чайников](https://site-do.ru/html/)
 - [Основы HTML (видео от учеников JavaRush)](https://www.youtube.com/watch?v=BdsA7VCLRc8)
     
-#### Web, JavaScript, CSS    
+#### Web, JavaScript, CSS 
+- [Знакомство с HTML и CSS](https://htmlacademy.ru/courses/basic-html-css)
 - [Справочник по WEB](https://developer.mozilla.org/ru/)
 - [Видео по WEB-технологиям](https://www.youtube.com/user/WebMagistersRu/playlists)
 - [Изучение JavaScript в одном видео уроке за час](https://www.youtube.com/watch?v=QBWWplFkdzw)
