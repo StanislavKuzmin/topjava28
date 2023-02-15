@@ -125,7 +125,7 @@ GRANT ALL PRIVILEGES ON DATABASE topjava TO "user";
 ```
 
 --------------
-### Установка через Docker (если у вас Windows - рекомендую этот вариант уже после выполнения ДЗ - с ним можно долго провозиться)
+### Установка через Docker (если у вас Windows, рекомендую этот вариант уже после выполнения ДЗ - с ним можно долго провозиться)
 Для работы современного ПО часто требуется большая настроенная инфраструктура: RDBMS, NoSQL, Kafka, RabbitMQ и др. Кроме того, концепция микросервисов подразумевает
 запуск каждого сервиса в изолированной среде, их быстрое поднятие и масштабирование. 
 Инструмент [Docker](https://ru.wikipedia.org/wiki/Docker) позволяет «упаковать» приложение со всем его окружением и зависимостями в контейнер, который может быть развёрнут на любой Linux-системе, что делает его незаменимым инструментом разработчика.  
@@ -140,29 +140,28 @@ GRANT ALL PRIVILEGES ON DATABASE topjava TO "user";
 [**Основы и руководство по Docker**](https://tproger.ru/translations/how-to-start-using-docker/)   
 [Docker - понятный туториал](https://badtry.net/docker-tutorial-dlia-novichkov-rassmatrivaiem-docker-tak-iesli-by-on-byl-ighrovoi-pristavkoi/)
 
-##### Для разных ОС установка Docker отличается.  Для Windows часто это достаточно заморочно, возможно лучший вариант - [собственный UNIX хостинг](https://github.com/JavaOPs/startup). Тарифы минимальные - от 150р./мес. Он также пригодиться для практики с терминалом Linux и для деплоя приложения в конце стажировки.
+#### Для разных ОС установка Docker отличается.  Для Windows часто это достаточно заморочно, возможно лучший вариант - [собственный UNIX хостинг](https://github.com/JavaOPs/startup). Он также пригодиться для практики с терминалом Linux и для деплоя приложения в конце стажировки.
 - для [Windows без поддержки Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/reference/hyper-v-requirements) требуется Docker Toolbox,
 для Windows 10 Pro and Enterprise - Docker Desktop. [Инструкция по проверке виртуализации и установке](https://devconnected.com/how-to-install-docker-on-windows-7-8-10-home-and-pro/)
 - На Windows Home можно поставить Docker Desktop, предварительно [установив WSL2 (Windows Subsystem for Linux)](https://docs.microsoft.com/ru-ru/windows/wsl/install)
-- Убедитесь, что wsl версии 2: возможно понадобится включить в BIOS виртуализацию (гуглится по материнской плате) и [отключить в Windows гипервизор](https://sysadmintips.ru/kak-vykljuchit-virtualizaciju-hyper-v-windows-10.html#Otklucenie_Hyper-V_v_Windows_10_cerez_Programmy_i_komponenty)
-- Команды из cmd/PoswrShell:
+  - Убедитесь, что wsl версии 2: возможно понадобится включить в BIOS виртуализацию (гуглится по материнской плате) и [отключить в Windows гипервизор](https://sysadmintips.ru/kak-vykljuchit-virtualizaciju-hyper-v-windows-10.html#Otklucenie_Hyper-V_v_Windows_10_cerez_Programmy_i_komponenty)
+  - [Upgrade version from WSL 1 to WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install#upgrade-version-from-wsl-1-to-wsl-2)
+  - [Обновление WSL до версии 2](https://docs.microsoft.com/en-us/windows/wsl/install-manual)
+  - Команды из cmd/PoswrShell:
 ```
 wsl -l -v : проверить версию
 wsl --set-version Ubuntu-20.04 2  : поставить версию 2
 wsl : запустить Ubuntu 
-```
-- [Upgrade version from WSL 1 to WSL 2](https://docs.microsoft.com/en-us/windows/wsl/install#upgrade-version-from-wsl-1-to-wsl-2)
-- [Обновление WSL до версии 2](https://docs.microsoft.com/en-us/windows/wsl/install-manual)
-```
-   sudo service docker status <- проверка статуса
-   sudo service docker start  <-старт
-   sudo service docker restart <-рестарт
+
+sudo service docker status <- проверка статуса
+sudo service docker start  <-старт
+sudo service docker restart <-рестарт
 ```   
 - [Установка для Mac и Linux](https://docs.docker.com/get-started/)
 - Установка под Ubuntu: ` sudo apt install docker.io`
   - [How can I use docker without sudo?](https://askubuntu.com/a/477554/1357134)
   
-> Docker могут мешать: DrWeb, firewall, анитивирусы
+#### Работе Docker могут мешать: DrWeb, firewall, анитивирусы
 
 После установки у меня не запускался `Docker Quickstart Terminal`, я запустил Docker Toolbox из `Git Bash`:
 - Запустил Git Bash
@@ -216,8 +215,8 @@ docker help : справка по командам
   - [Книги по PostgreSQL](https://postgrespro.ru/education/books)
 
 ### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 9. <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFQWtHYU1qTDlMWVE">Настройка Database в IDEA.</a>
-> Heroku стал платным, вместо него предлагаю сделать [собственный хостинг](https://github.com/JavaOPs/startup).   
-> За 150р./мес - практика с Linux, деплой своих приложений, развертывание Docker.  
+Heroku стал платным, вместо него предлагаю зарегистрировать [**собственный выделенный хостинг**](https://github.com/JavaOPs/startup).     
+По цене от 150р./мес имеем: собственный сайт, практика с Linux, деплой своих приложений, развертывание Docker.  
 
 #### Apply 3_11_add_postgresql.patch
 -  <a href="http://habrahabr.ru/company/JetBrains/blog/204064/">Настройка Database в IDEA</a> и запуск SQL.
