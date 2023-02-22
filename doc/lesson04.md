@@ -71,7 +71,8 @@
 #### **Apply 4_7_create_inmemory_test_ctx.patch**
 > Переименовал `mock.xml` в `inmemory.xml`
 
-### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 6. <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFVWZYcHoyUF9qX2M">ORM. Hibernate. JPA.</a>
+### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 6.1 [Основные определения ORM. Hibernate. JPA](https://drive.google.com/file/d/1S--FEm2R2LSgjN1ALAj7sN4AAFJ7rt4r)
+### ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 6.2 <a href="https://drive.google.com/open?id=0B9Ye2auQ_NsFVWZYcHoyUF9qX2M">ORM. Hibernate. JPA.</a>
 ![image](https://user-images.githubusercontent.com/13649199/139490982-0e8d6a6a-f1b6-4db0-8c61-f49f2056c274.png)
 
 <a href="https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model">Entity</a>- класс (объект Java), который в ORM маппится в таблицу DB.
