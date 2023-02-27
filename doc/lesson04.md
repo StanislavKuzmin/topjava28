@@ -11,7 +11,7 @@
 
 #### `SpringMain, InMemoryAdminRestControllerTest, InMemoryAdminRestControllerSpringTest` починим в патче `4_7_create_inmemory_test_ctx` (видео 4)
 
-#### **Apply 4_1_HW3.patch**]()
+#### **Apply 4_1_HW3.patch**
 > Таблицы [принято именовать в единственном числе](https://stackoverflow.com/questions/338156/548473) (`users` - исключение, тк это ключевое слово).  
 Переименовал таблицы в `user_role` и `meal`. Если у вас остались старая база с множественными именами - удалите их вручную.
 
