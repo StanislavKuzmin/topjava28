@@ -19,6 +19,8 @@ import static ru.javawebinar.topjava.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
 })
 @Entity
 @Table(name = "users")
+@NamedEntityGraph(name = "User.meal",
+        attributeNodes = @NamedAttributeNode("meals"))
 public class User extends AbstractNamedEntity {
 
     public static final String DELETE = "User.delete";
@@ -54,6 +56,10 @@ public class User extends AbstractNamedEntity {
     @Range(min = 10, max = 10000)
     private int caloriesPerDay = DEFAULT_CALORIES_PER_DAY;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OrderBy("dateTime DESC")
+    private List<Meal> meals;
+
     public User() {
     }
 
@@ -73,6 +79,22 @@ public class User extends AbstractNamedEntity {
         this.enabled = enabled;
         this.registered = registered;
         setRoles(roles);
+    }
+
+    public void addMealtoUser(Meal meal) {
+        if (meals == null) {
+            meals = new ArrayList<>();
+        }
+        meals.add(meal);
+        meal.setUser(this);
+    }
+
+    public List<Meal> getMeals() {
+        return meals;
+    }
+
+    public void setMeals(List<Meal> meals) {
+        this.meals = meals;
     }
 
     public String getEmail() {
