@@ -20,6 +20,5 @@ public interface CrudUserRepository extends JpaRepository<User, Integer> {
 
     @EntityGraph(value = "User.meal", type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT u FROM User u WHERE u.id=:id")
-    @Transactional
     User getWithMeals(@Param("id") int id);
 }

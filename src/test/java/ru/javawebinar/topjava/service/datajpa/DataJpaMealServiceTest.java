@@ -1,29 +1,28 @@
-package ru.javawebinar.topjava.service;
+package ru.javawebinar.topjava.service.datajpa;
 
 
 import org.junit.Test;
 import org.springframework.test.context.ActiveProfiles;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.service.AbstractMealServiceTest;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
-import java.time.Month;
-
-import static java.time.LocalDateTime.of;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static ru.javawebinar.topjava.MealTestData.NOT_FOUND;
 import static ru.javawebinar.topjava.MealTestData.*;
+import static ru.javawebinar.topjava.Profiles.DATAJPA;
 import static ru.javawebinar.topjava.UserTestData.*;
-import static ru.javawebinar.topjava.UserTestData.NOT_FOUND;
 
-@ActiveProfiles({"datajpa", "datajpa,jpa"})
-public class DataJpaMealServiceTest extends AbstractMealServiceTest{
+@ActiveProfiles(DATAJPA)
+public class DataJpaMealServiceTest extends AbstractMealServiceTest {
 
     @Test
     public void getWithUser() {
-        Meal expected = new Meal(ADMIN_MEAL_ID, of(2020, Month.JANUARY, 31, 14, 0), "Админ ланч", 510);
+        Meal expected = new Meal(adminMeal1);
         expected.setUser(admin);
         Meal actual = service.getWithUser(ADMIN_MEAL_ID, ADMIN_ID);
-        assertEquals(actual, expected);
+        MEAL_MATCHER.assertMatch(actual, expected);
+        USER_MATCHER.assertMatch(admin, actual.getUser());
     }
 
     @Test

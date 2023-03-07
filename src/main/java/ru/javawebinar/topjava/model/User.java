@@ -56,7 +56,7 @@ public class User extends AbstractNamedEntity {
     @Range(min = 10, max = 10000)
     private int caloriesPerDay = DEFAULT_CALORIES_PER_DAY;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @OrderBy("dateTime DESC")
     private List<Meal> meals;
 
@@ -79,14 +79,6 @@ public class User extends AbstractNamedEntity {
         this.enabled = enabled;
         this.registered = registered;
         setRoles(roles);
-    }
-
-    public void addMealtoUser(Meal meal) {
-        if (meals == null) {
-            meals = new ArrayList<>();
-        }
-        meals.add(meal);
-        meal.setUser(this);
     }
 
     public List<Meal> getMeals() {
