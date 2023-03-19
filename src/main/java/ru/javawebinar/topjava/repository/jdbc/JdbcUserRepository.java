@@ -13,7 +13,7 @@ import org.springframework.util.CollectionUtils;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
-import ru.javawebinar.topjava.util.ValidationService;
+import ru.javawebinar.topjava.util.BeanValidationUtil;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,94 +43,26 @@ public class JdbcUserRepository implements UserRepository {
     @Override
     @Transactional
     public User save(User user) {
-        ValidationService.validate(user);
+        BeanValidationUtil.validate(user);
         BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(user);
 
         if (user.isNew()) {
             Number newKey = insertUser.executeAndReturnKey(parameterSource);
             user.setId(newKey.intValue());
             batchInsertRole(user);
-        } else if (namedParameterJdbcTemplate.update("""
+        }
+        boolean isRolesChanged = user.getRoles().equals(get(user.id()).getRoles());
+        if (namedParameterJdbcTemplate.update("""
                    UPDATE users SET name=:name, email=:email, password=:password,
                    registered=:registered, enabled=:enabled, calories_per_day=:caloriesPerDay WHERE id=:id
-                """, parameterSource) == 0
-                & jdbcTemplate.update("DELETE FROM user_role WHERE user_id=?", user.getId()) == 0
-                & batchInsertRole(user).length == 0) {
+                """, parameterSource) == 0 && isRolesChanged) {
             return null;
         }
-        return user;
-    }
-
-    @Override
-    @Transactional
-    public boolean delete(int id) {
-        return jdbcTemplate.update("DELETE FROM users WHERE id=?", id) != 0;
-    }
-
-    @Override
-    public User get(int id) {
-        List<User> users = jdbcTemplate.query("SELECT * " +
-                        "FROM users u" +
-                        " LEFT JOIN user_role ur on u.id = ur.user_id WHERE u.id=?",
-                JdbcUserRepository::extractUser, id);
-        return DataAccessUtils.singleResult(users);
-    }
-
-    @Override
-    public User getByEmail(String email) {
-//        return jdbcTemplate.queryForObject("SELECT * FROM users WHERE email=?", ROW_MAPPER, email);
-        List<User> users = jdbcTemplate.query("SELECT * " +
-                        "FROM users u" +
-                        " LEFT JOIN user_role ur on u.id = ur.user_id WHERE u.email=?",
-                JdbcUserRepository::extractUser, email);
-        return DataAccessUtils.singleResult(users);
-    }
-
-    @Override
-    public List<User> getAll() {
-        return jdbcTemplate.query("SELECT * " +
-                "FROM users u" +
-                " LEFT JOIN user_role ur on u.id = ur.user_id" +
-                " ORDER BY u.name, u.email", rs -> {
-            Map<Integer, User> map = new LinkedHashMap<>();
-            User user;
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                user = map.get(id);
-                if (user == null) {
-                    user = new User(id, rs.getString("name"), rs.getString("email"),
-                            rs.getString("password"), rs.getInt("calories_per_day"),
-                            rs.getBoolean("enabled"), rs.getDate("registered"), new ArrayList<>());
-                    map.put(id, user);
-                }
-                String role = rs.getString("role");
-                if (role == null) {
-                    user.setRoles(Collections.emptyList());
-                } else {
-                    user.addRole(Role.valueOf(role));
-                }
-            }
-            return new ArrayList<>(map.values());
-        });
-    }
-
-    private static List<User> extractUser(ResultSet rs) throws SQLException {
-        if (!rs.next()) {
-            return Collections.emptyList();
+        if (!isRolesChanged) {
+            jdbcTemplate.update("DELETE FROM user_role WHERE user_id=?", user.getId());
+            batchInsertRole(user);
         }
-        User user = new User(rs.getInt("id"), rs.getString("name"), rs.getString("email"),
-                rs.getString("password"), rs.getInt("calories_per_day"),
-                rs.getBoolean("enabled"), rs.getDate("registered"), new ArrayList<>());
-        do {
-            String role = rs.getString("role");
-            if (role != null) {
-                user.addRole(Role.valueOf(role));
-            } else {
-                user.setRoles(Collections.emptyList());
-                break;
-            }
-        } while (rs.next());
-        return List.of(user);
+        return user;
     }
 
     private int[] batchInsertRole(User user) {
@@ -154,5 +86,60 @@ public class JdbcUserRepository implements UserRepository {
                     });
         }
         return new int[0];
+    }
+
+    @Override
+    @Transactional
+    public boolean delete(int id) {
+        return jdbcTemplate.update("DELETE FROM users WHERE id=?", id) != 0;
+    }
+
+    @Override
+    public User get(int id) {
+        List<User> users = jdbcTemplate.query("SELECT * " +
+                        "FROM users u" +
+                        " LEFT JOIN user_role ur on u.id = ur.user_id WHERE u.id=?",
+                JdbcUserRepository::extractUser, id);
+        return DataAccessUtils.singleResult(users);
+    }
+
+    private static List<User> extractUser(ResultSet rs) throws SQLException {
+        Map<Integer, User> map = new LinkedHashMap<>();
+        while (rs.next()) {
+            User user;
+            int id = rs.getInt("id");
+            user = map.get(id);
+            if (user == null) {
+                user = new User(id, rs.getString("name"), rs.getString("email"),
+                        rs.getString("password"), rs.getInt("calories_per_day"),
+                        rs.getBoolean("enabled"), rs.getDate("registered"), new ArrayList<>());
+                map.put(id, user);
+            }
+            String role = rs.getString("role");
+            if (role == null) {
+                user.setRoles(Collections.emptyList());
+            } else {
+                user.addRole(Role.valueOf(role));
+            }
+        }
+        return CollectionUtils.isEmpty(map) ? Collections.emptyList() : new ArrayList<>(map.values());
+    }
+
+    @Override
+    public User getByEmail(String email) {
+//        return jdbcTemplate.queryForObject("SELECT * FROM users WHERE email=?", ROW_MAPPER, email);
+        List<User> users = jdbcTemplate.query("SELECT * " +
+                        "FROM users u" +
+                        " LEFT JOIN user_role ur on u.id = ur.user_id WHERE u.email=?",
+                JdbcUserRepository::extractUser, email);
+        return DataAccessUtils.singleResult(users);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return jdbcTemplate.query("SELECT * " +
+                "FROM users u" +
+                " LEFT JOIN user_role ur on u.id = ur.user_id" +
+                " ORDER BY u.name, u.email", JdbcUserRepository::extractUser);
     }
 }

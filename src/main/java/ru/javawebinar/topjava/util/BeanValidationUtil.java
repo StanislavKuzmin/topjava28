@@ -5,7 +5,7 @@ import org.springframework.util.CollectionUtils;
 import javax.validation.*;
 import java.util.Set;
 
-public class ValidationService {
+public class BeanValidationUtil {
 
     private static final Validator validator;
 
@@ -14,7 +14,7 @@ public class ValidationService {
         validator = factory.getValidator();
     }
 
-    private ValidationService() {
+    private BeanValidationUtil() {
     }
 
     public static <T> void validate(T object) {

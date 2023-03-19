@@ -21,22 +21,22 @@ import static ru.javawebinar.topjava.util.DateTimeUtil.parseLocalTime;
 @RequestMapping("/meals")
 public class JspMealController extends AbstractMealController {
 
-    @RequestMapping
-    public String getMeals(Model model) {
+    @GetMapping
+    public String get(Model model) {
         log.info("meals");
         model.addAttribute("meals", getAll());
         return "meals";
     }
 
-    @RequestMapping("/new")
-    public String newMealForm(HttpServletRequest request) {
+    @GetMapping("/new")
+    public String newForm(HttpServletRequest request) {
         Meal meal = new Meal(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES), "", 1000);
         request.setAttribute("meal", meal);
         return "mealForm";
     }
 
     @PostMapping("/save")
-    public String saveMeal(HttpServletRequest request) {
+    public String save(HttpServletRequest request) {
         Meal meal = new Meal(
                 LocalDateTime.parse(request.getParameter("dateTime")),
                 request.getParameter("description"),
@@ -50,20 +50,20 @@ public class JspMealController extends AbstractMealController {
         return "redirect:/meals";
     }
 
-    @RequestMapping("/edit")
-    public String editMealForm(HttpServletRequest request) {
+    @GetMapping("/edit")
+    public String editForm(HttpServletRequest request) {
         request.setAttribute("meal", get(Integer.parseInt(request.getParameter("id"))));
         return "mealForm";
     }
 
-    @RequestMapping("/delete")
-    public String deleteMeal(HttpServletRequest request) {
+    @GetMapping("/delete")
+    public String delete(HttpServletRequest request) {
         delete(Integer.parseInt(request.getParameter("id")));
         return "redirect:/meals";
     }
 
     @GetMapping ("/filter")
-    public String filterMeal(HttpServletRequest request, Model model) {
+    public String filter(HttpServletRequest request, Model model) {
         LocalDate startDate = parseLocalDate(request.getParameter("startDate"));
         LocalDate endDate = parseLocalDate(request.getParameter("endDate"));
         LocalTime startTime = parseLocalTime(request.getParameter("startTime"));

@@ -3,40 +3,30 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
-
-<head>
-    <base href="${pageContext.request.contextPath}/"/>
-    <spring:url value="meals" var="url"/>
-    <title>Meal</title>
-    <link rel="stylesheet" href="resources/css/style.css">
-</head>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <section>
     <hr>
     <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.Meal" scope="request"/>
     <h2>
-        <c:choose>
-            <c:when test="${meal.description.equals('')}"><spring:message code="meal.cre"/></c:when>
-            <c:otherwise><spring:message code="meal.ed"/></c:otherwise>
-        </c:choose>
+        <spring:message code="${meal.isNew() ? 'meal.create' : 'meal.edit'}"/>
     </h2>
-    <form method="post" action="${url}/save">
+    <form method="post" action="meals/save">
         <input type="hidden" name="id" value="${meal.id}">
         <dl>
             <dt><spring:message code="meal.date"/></dt>
             <dd><input type="datetime-local" value="${meal.dateTime}" name="dateTime" required></dd>
         </dl>
         <dl>
-            <dt><spring:message code="meal.des"/></dt>
+            <dt><spring:message code="meal.description"/></dt>
             <dd><input type="text" value="${meal.description}" size=40 name="description" required></dd>
         </dl>
         <dl>
-            <dt><spring:message code="meal.calor"/></dt>
+            <dt><spring:message code="meal.calories"/></dt>
             <dd><input type="number" value="${meal.calories}" name="calories" required></dd>
         </dl>
-        <button type="submit"><spring:message code="meal.sav"/></button>
-        <button onclick="window.history.back()" type="button"><spring:message code="meal.canc"/></button>
+        <button type="submit"><spring:message code="meal.save"/></button>
+        <button onclick="window.history.back()" type="button"><spring:message code="meal.cancel"/></button>
     </form>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
