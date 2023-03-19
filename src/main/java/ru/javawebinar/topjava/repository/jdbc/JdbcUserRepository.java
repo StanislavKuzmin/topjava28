@@ -50,15 +50,13 @@ public class JdbcUserRepository implements UserRepository {
             Number newKey = insertUser.executeAndReturnKey(parameterSource);
             user.setId(newKey.intValue());
             batchInsertRole(user);
-        }
-        boolean isRolesChanged = user.getRoles().equals(get(user.id()).getRoles());
-        if (namedParameterJdbcTemplate.update("""
-                   UPDATE users SET name=:name, email=:email, password=:password,
-                   registered=:registered, enabled=:enabled, calories_per_day=:caloriesPerDay WHERE id=:id
-                """, parameterSource) == 0 && isRolesChanged) {
-            return null;
-        }
-        if (!isRolesChanged) {
+        } else {
+            if (namedParameterJdbcTemplate.update("""
+                       UPDATE users SET name=:name, email=:email, password=:password,
+                       registered=:registered, enabled=:enabled, calories_per_day=:caloriesPerDay WHERE id=:id
+                    """, parameterSource) == 0) {
+                return null;
+            }
             jdbcTemplate.update("DELETE FROM user_role WHERE user_id=?", user.getId());
             batchInsertRole(user);
         }
@@ -106,9 +104,8 @@ public class JdbcUserRepository implements UserRepository {
     private static List<User> extractUser(ResultSet rs) throws SQLException {
         Map<Integer, User> map = new LinkedHashMap<>();
         while (rs.next()) {
-            User user;
             int id = rs.getInt("id");
-            user = map.get(id);
+            User user = map.get(id);
             if (user == null) {
                 user = new User(id, rs.getString("name"), rs.getString("email"),
                         rs.getString("password"), rs.getInt("calories_per_day"),
