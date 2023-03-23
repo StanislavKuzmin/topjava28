@@ -443,7 +443,7 @@ JSON...
 
 </details>
 
-#### Apply 7_12_rest_test_jackson.patch
+#### Apply 7_12_rest_test_jackson.patch (внимание: обновил патч 23.03 в 11.00)
 
 - [Jackson databind github](https://github.com/FasterXML/jackson-databind)
 - [Jackson Annotation Examples](https://www.baeldung.com/jackson-annotations)
