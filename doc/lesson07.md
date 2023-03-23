@@ -586,6 +586,7 @@ SOAP UI - это один из инструментов для тестиров�
     - <a href="http://rus-linux.net/lib.php?name=/MyLDP/internet/curlrus.html">Написание HTTP-запросов с помощью Curl</a>.  
       Для Windows 7 можно использовать Git Bash, с Windows 10 v1803 можно прямо из консоли. Возможны проблемы с UTF-8:
         - [CURL doesn't encode UTF-8](https://stackoverflow.com/a/41384903/548473)
+        - [кириллица в теле POST-запроса](https://barbitoff.blogspot.com/2018/11/soapui-post-rest.html)
         - [Нстройка кодировки в Windows](https://support.socialkit.ru/ru/knowledge-bases/4/articles/11110-preduprezhdenie-obnaruzhenyi-problemyi-svyazannyie-s-raspoznavaniem-russkih-simvolov)
     - **[IDEA: Tools->HTTP Client->...](https://www.jetbrains.com/help/idea/rest-client-tool-window.html)**
     - <a href="https://www.getpostman.com/">Postman</a>
