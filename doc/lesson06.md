@@ -105,7 +105,7 @@ Jdbc) .. ServiceTest` с помощью этих аннотаций укажем
 помощью
 
  ```java
- appCtx.getEnviroment().setActoveProfiles(Profiles.POSTGRES,Profiles.DATAJPA)
+ appCtx.getEnviroment().setActiveProfiles(Profiles.POSTGRES,Profiles.DATAJPA)
  ```
 
 Затем передаем контексту наши конфигурации и обновляем его. В данном случае Spring считает конфигурации, и настроит
