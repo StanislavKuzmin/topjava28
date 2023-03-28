@@ -240,12 +240,22 @@ Java Enterprise Online Project
 -  <a href="http://www.ozon.ru/context/detail/id/3174887/">Brian Goetz: Java Concurrency in Practice</a>
 -  <a href="http://bookvoed.ru/book?id=2593572">G.L. McDowell: Cracking the Coding Interview</a>
 
-curl -v -k http://localhost:8080/topjava/rest/profile/meals
-curl -v -k http://localhost:8080/topjava/rest/profile/meals/100003
-curl -v -k -d '{"dateTime":"2020-02-01T18:00:00","description":"Созданный ужин","calories":300}' -H "Content-Type: application/json;charset=Windows-1251" -X POST http://localhost:8080/topjava/rest/profile/meals/
-curl -v -k -X DELETE "http://localhost:8080/topjava/rest/profile/meals/100012"
-curl -v -k -d '{"id":100003, "dateTime":"2020-01-30T13:02:00","description":"Обновлённый завтрак","calories":200}' -H "Content-Type: application/json;charset=Windows-1251" -X PUT http://localhost:8080/topjava/rest/profile/meals/100003
-curl -v -k http://localhost:8080/topjava/rest/profile/meals/filter/?startDate=2020-01-29&startTime=09:00&endDate=2020-02-01&endTime=11:00
-curl -v -k http://localhost:8080/topjava/rest/profile/meals/filter/?startDate=2020-01-29&endDate=2020-02-01
-curl -v -k http://localhost:8080/topjava/rest/admin/users/with-meals/100001
-curl -v -k http://localhost:8080/topjava/rest/profile/with-meals
+#### Curl requests for tests
+- Get all meals by current user
+- curl -v -k http://localhost:8080/topjava/rest/profile/meals
+- Get one meal by current user
+- curl -v -k http://localhost:8080/topjava/rest/profile/meals/100003
+- Create new meal for current user
+- curl -v -k -d '{"dateTime":"2020-02-01T18:00:00","description":"Созданный ужин","calories":300}' -H "Content-Type: application/json;charset=Windows-1251" -X POST http://localhost:8080/topjava/rest/profile/meals/
+- Delete one meal for current user
+- curl -v -k -X DELETE "http://localhost:8080/topjava/rest/profile/meals/100012"
+- Update one meal for current user
+- curl -v -k -d '{"id":100003, "dateTime":"2020-01-30T13:02:00","description":"Обновлённый завтрак","calories":200}' -H "Content-Type: application/json;charset=Windows-1251" -X PUT http://localhost:8080/topjava/rest/profile/meals/100003
+- Get meals filtered by date and time for current user
+- curl -v -k http://localhost:8080/topjava/rest/profile/meals/filter/?startDate=2020-01-29&startTime=09:00&endDate=2020-02-01&endTime=11:00
+- Get meals filtered by date for current user
+- curl -v -k http://localhost:8080/topjava/rest/profile/meals/filter/?startDate=2020-01-29&endDate=2020-02-01
+- Get any user with all his meals with admin roots
+- curl -v -k http://localhost:8080/topjava/rest/admin/users/100001/with-meals
+- Get current user with all his meals
+- curl -v -k http://localhost:8080/topjava/rest/profile/with-meals
