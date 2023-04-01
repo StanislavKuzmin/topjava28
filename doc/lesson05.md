@@ -115,6 +115,7 @@
 > - В `spring-framework-bom` мы уже задали версию Spring. Убрал из остальных зависимостей.
 > - В spring-data-jpa 2.x поменялся интерфейс: `T CrudRepository.findOne(ID id)` -> `Optional<T> CrudRepository findById(ID id)`
 >   - [Java Optional — Отец холиваров](http://sboychenko.ru/java-optional)
+>   - [Optonal от Oracle](https://stuartmarks.files.wordpress.com/2016/09/optionalmotherofallbikesheds3.pdf)
 >   - [Java 8 Optional In Depth](https://www.mkyong.com/java8/java-8-optional-in-depth/)
 > - Не стал переопределять в `CrudUserRepository` методы `JpaRepository` (для явного указания всех используемых методов). Обычно этого не делают.
 
