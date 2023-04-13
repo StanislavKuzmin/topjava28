@@ -465,7 +465,7 @@ Spring MVC предоставляет возможность стандартн�
 
 Попробуйте выполнить AJAX запрос из вашего js скрипта на url, домен которого отличается от вашего (например 'http://topjava.herokuapp.com/meals/ajax/admin/users/{id}'). В консоли браузера
 будет `XMLHttpRequest cannot load`... - <a href="https://developer.chrome.com/extensions/xhr">нарушение same origin policy</a>. Формам же разрешается делать submit (через `action=..`) на другой домен,
-но невозможно cделать `Content-Type`, отличный от <a href="http://htmlbook.ru/html/form/enctype">стндартных enctype</a> и методов <a href="http://htmlbook.ru/html/form/method">кроме get и post</a>.
+но невозможно cделать `Content-Type`, отличный от <a href="http://htmlbook.ru/html/form/enctype">стандартных enctype</a> и методов <a href="http://htmlbook.ru/html/form/method">кроме get и post</a>.
 Таким образом `consumes = MediaType.APPLICATION_JSON_VALUE` для POST защищает приложение от CSRF.
 
 > Почему использован `BCryptPasswordEncoder`а не `hash(password+salt)`?
