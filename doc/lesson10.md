@@ -331,7 +331,7 @@ Spring MVC предоставляет возможность стандартн�
 > [Поменял код 404 (URL not found) на 422 (Unprocessable Entity)](http://stackoverflow.com/a/22358422/548473)
 
 - [Обработка исключений в контроллерах Spring](https://habr.com/ru/post/528116/)
-- <a href="http://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc#using-http-status-codes">Используем HTTP status code</a>
+- <a href="http://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc">Using HTTP Status Codes</a>
 
 #### Apply 10_11_global_exception.patch
 
@@ -339,7 +339,7 @@ Spring MVC предоставляет возможность стандартн�
 > - Добавил локализацию
 > - Добавил общий статус `500` в ответ `GlobalExceptionHandler` (на следующем уроке будем его менять, в зависимости от типа ошибки)
 
-- <a href="http://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc#global-exception-handling">Global Exception Handling</a>
+- <a href="http://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc">Global Exception Handling</a>
 
 #### Apply 10_12_controller_advice_exception.patch
 
@@ -359,7 +359,7 @@ Spring MVC предоставляет возможность стандартн�
 > - Добавил в `curl.md` пример с возвращением `ErrorInfo`. Локализация ошибок будет на последнем занятии
 
 - <a href="http://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc#errors-and-rest">Errors and REST</a>
-- <a href="http://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc#controller-based-exception-handling">Exception Handling на уровне контроллера</a>
+- <a href="http://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc#controller-based-exception-handling">Controller Based Exception Handling</a>
 - <a href="https://www.javacodegeeks.com/2013/11/controlleradvice-improvements-in-spring-4.html">@ControllerAdvice improvements in Spring 4</a>
 - <a href="https://dzone.com/articles/spring-31-valid-requestbody">@Valid @RequestBody + Error handling</a>
 
