@@ -463,7 +463,7 @@ Spring MVC предоставляет возможность стандартн�
 
 > Еще раз: почему не нужен csrf для REST и нельзя подделать JSON запрос с вредоносного сайта?
 
-Попробуйте выполнить AJAX запрос из вашего js скрипта на url, домен которого отличается от вашего (например 'http://topjava.herokuapp.com/meals/ajax/admin/users/{id}'). В консоли браузера
+Попробуйте выполнить AJAX запрос из вашего js скрипта на url, домен которого отличается от вашего (например 'http://javaops-demo.ru/topjava/rest/admin/users/{id}'). В консоли браузера
 будет `XMLHttpRequest cannot load`... - <a href="https://developer.chrome.com/extensions/xhr">нарушение same origin policy</a>. Формам же разрешается делать submit (через `action=..`) на другой домен,
 но невозможно cделать `Content-Type`, отличный от <a href="http://htmlbook.ru/html/form/enctype">стандартных enctype</a> и методов <a href="http://htmlbook.ru/html/form/method">кроме get и post</a>.
 Таким образом `consumes = MediaType.APPLICATION_JSON_VALUE` для POST защищает приложение от CSRF.
@@ -485,7 +485,7 @@ Spring MVC предоставляет возможность стандартн�
 ## ![hw](https://cloud.githubusercontent.com/assets/13649199/13672719/09593080-e6e7-11e5-81d1-5cb629c438ca.png) Домашнее задание HW10
 
 - 1: Сделать валидацию в `AdminUIController/MealUIController` через `ExceptionInfoHandler`. Вернуть клиенту `ErrorInfo` и статус `HttpStatus.UNPROCESSABLE_ENTITY` (тип методов контроллеров
-  сделать `void`). Ошибки валидации отобразить на клиенте красиво (так, как это сделано в [demo](http://topjava.herokuapp.com), без локализации полей)
+  сделать `void`). Ошибки валидации отобразить на клиенте красиво (так, как это сделано в [demo](http://javaops-demo.ru/topjava), без локализации полей)
 - 2: Сделать валидацию принимаемых json объектов в REST контроллерах через `ExceptionInfoHandler`. Добавить для Rest контроллеров тесты для невалидных данных.
     - <a href="https://dzone.com/articles/spring-31-valid-requestbody">@Valid @RequestBody + Error handling</a>
 - 3: Сделать обработку ошибки при дублирования email (вывод сообщения "User with this email already exists") для:
@@ -503,7 +503,7 @@ Spring MVC предоставляет возможность стандартн�
 - 4: Сделать обработку ошибки при дублирования dateTime еды. Сделать тесты на дублирование email и dateTime.
     - [Тесты на DB exception c @Transactional](http://stackoverflow.com/questions/37406714/548473)
     - [Сheck String in response body with mockMvc](https://stackoverflow.com/questions/18336277/548473)
-- 5: Сделать в приложении выбор локали (см. http://topjava.herokuapp.com/)
+- 5: Сделать в приложении выбор локали (см. http://javaops-demo.ru/topjava)
     - [Internationalization](https://terasolunaorg.github.io/guideline/5.0.x/en/ArchitectureInDetail/Internationalization.html)
     - <a href="http://www.mkyong.com/spring-mvc/spring-mvc-internationalization-example">Spring MVC internationalization sample</a>
     - <a href="https://www.concretepage.com/spring-4/spring-mvc-internationalization-localization">Spring 4 MVC Internationalization</a>

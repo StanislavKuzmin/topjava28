@@ -570,7 +570,7 @@ https://bs-uploads.toptal.io/blackfish-uploads/uploaded_file/file/412345/image-1
     - 4.2 Добавить метод `enable` в `AdminRestController` и протестировать его в `AdminRestControllerTest` и в сервисах
 
 ### Optional 2
-- 5: Попробуйте после модификации таблицы (например, после добавления записи) обновлять ее также с учетом фильтра (как в [демо](http://topjava.herokuapp.com/)).
+- 5: Попробуйте после модификации таблицы (например, после добавления записи) обновлять ее также с учетом фильтра (как в [демо](http://javaops-demo.ru/topjava)).
 ---------------------
 
 ## ![error](https://cloud.githubusercontent.com/assets/13649199/13672935/ef09ec1e-e6e7-11e5-9f79-d1641c05cbe6.png) Подсказки по HW08

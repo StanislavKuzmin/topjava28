@@ -11,7 +11,7 @@ Java Enterprise Online Project
 
     Старинная китайская поговорка
 
-## <a href="http://topjava.herokuapp.com/" target=_blank>Демо разрабатываемого приложения</a>
+## <a href="http://javaops-demo.ru/topjava" target=_blank>Демо разрабатываемого приложения</a>
 
 Обновленное вводное занятие (обязательно смотреть все видео)
 ===============
