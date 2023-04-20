@@ -98,6 +98,8 @@ CSRF фильтр открывает поток для чтения из HTTP з
 
 Первый самый простой и расширяемый (хотя зависить от базы), выбрал его. Для работы с HSQLDB сделал `toLowerCase`.
 
+#### Apply [11_04_2_fix.patch](https://drive.google.com/file/d/1OvUAJON7RWFR_y7iNcQYGyJVxt3i9edB) - можно накатывать после любого патча. Имя Constraint привел в соответствие с именем таблички
+
 > - Для работы с i18n использую `MessageSourceAccessor`.
 >   - [get error text from BindingResult](https://stackoverflow.com/questions/2751603/548473)
 > - Добавил тесты на дублирование. Отключил транзакционность в тестах на дублирование через `@Transactional(propagation = Propagation.NEVER)`.
