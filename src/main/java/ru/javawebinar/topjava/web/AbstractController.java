@@ -5,12 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import ru.javawebinar.topjava.to.BaseTo;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
 
-public interface AbstractController<S extends BaseTo> {
+public interface AbstractController<S> {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)

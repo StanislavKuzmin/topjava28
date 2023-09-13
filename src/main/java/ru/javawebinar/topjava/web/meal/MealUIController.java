@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/profile/meals", produces = MediaType.APPLICATION_JSON_VALUE)
-public class MealUIController extends AbstractMealController implements AbstractController<MealTo> {
+public class MealUIController extends AbstractMealController implements AbstractController<Meal> {
 
     @Override
     @GetMapping
@@ -46,11 +46,11 @@ public class MealUIController extends AbstractMealController implements Abstract
     }
 
     @Override
-    public void createOrUpdate(MealTo mealTo) {
-        if (mealTo.isNew()) {
-            super.create(mealTo);
+    public void createOrUpdate(Meal meal) {
+        if (meal.isNew()) {
+            super.create(meal);
         } else {
-            super.update(mealTo, mealTo.id());
+            super.update(meal, meal.id());
         }
     }
 }

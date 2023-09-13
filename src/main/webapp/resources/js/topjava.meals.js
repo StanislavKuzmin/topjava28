@@ -10,7 +10,7 @@ const ctx = {
             data: $("#filter").serialize()
         }).done(updateTableByData);
     }
-}
+};
 
 function clearFilter() {
     $("#filter")[0].reset();
@@ -31,7 +31,7 @@ $(function () {
                     "data": "dateTime",
                     "render": function (date, type, row) {
                         if (type === "display") {
-                            return date.replace('T', ' ').substring(0, 16);
+                            return formatDate(date);
                         }
                         return date;
                     }
@@ -64,4 +64,23 @@ $(function () {
             }
         })
     );
+    $('#startDate').datetimepicker({
+       timepicker:false,
+       format:'Y-m-d'
+    });
+    $('#endDate').datetimepicker({
+        timepicker:false,
+       format:'Y-m-d'
+    });
+    $('#startTime').datetimepicker({
+        datepicker:false,
+        format:'H:i'
+    });
+    $('#endTime').datetimepicker({
+        datepicker:false,
+        format:'H:i'
+    });
+    $('#dateTime').datetimepicker({
+        format:'Y-m-d H:i'
+    });
 });
