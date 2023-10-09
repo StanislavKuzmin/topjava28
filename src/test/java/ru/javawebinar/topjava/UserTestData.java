@@ -2,6 +2,8 @@ package ru.javawebinar.topjava;
 
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
+import ru.javawebinar.topjava.util.exception.ErrorInfo;
+import ru.javawebinar.topjava.util.exception.ErrorType;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
 import java.util.Collections;
@@ -31,6 +33,9 @@ public class UserTestData {
     public static final User admin = new User(ADMIN_ID, "Admin", "admin@gmail.com", "admin", 1900, Role.ADMIN, Role.USER);
     public static final User guest = new User(GUEST_ID, "Guest", "guest@gmail.com", "guest", 2000);
 
+    public static final ErrorInfo errorInfo = new ErrorInfo("", ErrorType.VALIDATION_ERROR,
+            "[caloriesPerDay] must be between 10 and 10000");
+
     static {
         user.setMeals(meals);
         admin.setMeals(List.of(adminMeal2, adminMeal1));
@@ -38,6 +43,10 @@ public class UserTestData {
 
     public static User getNew() {
         return new User(null, "New", "new@gmail.com", "newPass", 1555, false, new Date(), Collections.singleton(Role.USER));
+    }
+
+    public static User getNewNotValid() {
+        return new User(null, "New", "new@gmail.com", "newPass", 0, false, new Date(), Collections.singleton(Role.USER));
     }
 
     public static User getUpdated() {
@@ -48,6 +57,12 @@ public class UserTestData {
         updated.setPassword("newPass");
         updated.setEnabled(false);
         updated.setRoles(Collections.singletonList(Role.ADMIN));
+        return updated;
+    }
+
+    public static User getUpdatedNotValid() {
+        User updated = new User(user);
+        updated.setCaloriesPerDay(0);
         return updated;
     }
 

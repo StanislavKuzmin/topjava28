@@ -2,6 +2,8 @@ package ru.javawebinar.topjava;
 
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.to.MealTo;
+import ru.javawebinar.topjava.util.exception.ErrorInfo;
+import ru.javawebinar.topjava.util.exception.ErrorType;
 
 import java.time.Month;
 import java.time.temporal.ChronoUnit;
@@ -13,6 +15,7 @@ import static ru.javawebinar.topjava.model.AbstractBaseEntity.START_SEQ;
 public class MealTestData {
     public static final MatcherFactory.Matcher<Meal> MEAL_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Meal.class, "user");
     public static MatcherFactory.Matcher<MealTo> TO_MATCHER = MatcherFactory.usingEqualsComparator(MealTo.class);
+    public static MatcherFactory.Matcher<ErrorInfo> ERROR_INFO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(ErrorInfo.class, "url");
 
     public static final int NOT_FOUND = 10;
     public static final int MEAL1_ID = START_SEQ + 3;
@@ -30,11 +33,22 @@ public class MealTestData {
 
     public static final List<Meal> meals = List.of(meal7, meal6, meal5, meal4, meal3, meal2, meal1);
 
+    public static final ErrorInfo errorInfo = new ErrorInfo("", ErrorType.VALIDATION_ERROR,
+            "[calories] must be between 10 and 5000");
+
     public static Meal getNew() {
         return new Meal(null, of(2020, Month.FEBRUARY, 1, 18, 0), "Созданный ужин", 300);
     }
 
     public static Meal getUpdated() {
         return new Meal(MEAL1_ID, meal1.getDateTime().plus(2, ChronoUnit.MINUTES), "Обновленный завтрак", 200);
+    }
+
+     public static Meal getNotValidNew() {
+        return new Meal(null, of(2020, Month.FEBRUARY, 1, 18, 0), "Созданный ужин", 0);
+    }
+
+    public static Meal getNotValidUpdated() {
+        return new Meal(MEAL1_ID, meal1.getDateTime().plus(2, ChronoUnit.MINUTES), "Обновленный завтрак", 0);
     }
 }

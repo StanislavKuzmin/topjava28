@@ -1,5 +1,9 @@
 package ru.javawebinar.topjava.web.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -12,9 +16,18 @@ import ru.javawebinar.topjava.web.SecurityUtil;
 
 import javax.validation.Valid;
 
+import static ru.javawebinar.topjava.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_EMAIL;
+
 @Controller
 @RequestMapping("/profile")
 public class ProfileUIController extends AbstractUserController {
+
+    public final MessageSourceAccessor messageSourceAccessor;
+
+    @Autowired
+    public ProfileUIController(MessageSource messageSource) {
+        this.messageSourceAccessor = new MessageSourceAccessor(messageSource);
+    }
 
     @GetMapping
     public String profile() {
@@ -26,7 +39,13 @@ public class ProfileUIController extends AbstractUserController {
         if (result.hasErrors()) {
             return "profile";
         } else {
-            super.update(userTo, SecurityUtil.authUserId());
+            try {
+                super.update(userTo, SecurityUtil.authUserId());
+            } catch (DataIntegrityViolationException e) {
+                result.rejectValue("email", "error.user",
+                        messageSourceAccessor.getMessage(EXCEPTION_DUPLICATE_EMAIL));
+                return "profile";
+            }
             SecurityUtil.get().setTo(userTo);
             status.setComplete();
             return "redirect:/meals";
@@ -46,7 +65,14 @@ public class ProfileUIController extends AbstractUserController {
             model.addAttribute("register", true);
             return "profile";
         } else {
-            super.create(userTo);
+            try {
+                super.create(userTo);
+            } catch (DataIntegrityViolationException e) {
+                result.rejectValue("email", "error.user",
+                        messageSourceAccessor.getMessage(EXCEPTION_DUPLICATE_EMAIL));
+                model.addAttribute("register", true);
+                return "profile";
+            }
             status.setComplete();
             return "redirect:/login?message=app.registered&username=" + userTo.getEmail();
         }

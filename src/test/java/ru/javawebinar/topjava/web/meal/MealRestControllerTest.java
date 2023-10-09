@@ -6,16 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
+import ru.javawebinar.topjava.util.exception.ErrorInfo;
+import ru.javawebinar.topjava.util.exception.ErrorType;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 import ru.javawebinar.topjava.web.AbstractControllerTest;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.TestUtil.userHttpBasic;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
@@ -81,6 +85,33 @@ class MealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void updateNotValidCalories() throws Exception {
+        Meal notValidUpdated = getNotValidUpdated();
+        ResultActions action = perform(MockMvcRequestBuilders.put(REST_URL + MEAL1_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(user))
+                .content(JsonUtil.writeValue(notValidUpdated)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+
+        ErrorInfo er = ERROR_INFO_MATCHER.readFromJson(action);
+        ERROR_INFO_MATCHER.assertMatch(er, errorInfo);
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    void updateDuplicateDateTime() throws Exception {
+        Meal updated = getUpdated();
+        updated.setDateTime(meal2.getDateTime());
+        perform(MockMvcRequestBuilders.put(REST_URL + MEAL1_ID).contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(user))
+                .content(JsonUtil.writeValue(updated)))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.toString()))
+                .andExpect(jsonPath("$.detail").value("Meal with this date and time already exists"));
+    }
+
+    @Test
     void createWithLocation() throws Exception {
         Meal newMeal = getNew();
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
@@ -94,6 +125,34 @@ class MealRestControllerTest extends AbstractControllerTest {
         newMeal.setId(newId);
         MEAL_MATCHER.assertMatch(created, newMeal);
         MEAL_MATCHER.assertMatch(mealService.get(newId, USER_ID), newMeal);
+    }
+
+    @Test
+    void createWithLocationNotValidCalories() throws Exception {
+        Meal notValidNew = getNotValidNew();
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(user))
+                .content(JsonUtil.writeValue(notValidNew)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+
+        ErrorInfo er = ERROR_INFO_MATCHER.readFromJson(action);
+        ERROR_INFO_MATCHER.assertMatch(er, errorInfo);
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    void createDuplicateDateTime() throws Exception {
+        Meal newMeal = getNew();
+        newMeal.setDateTime(meal1.getDateTime());
+        perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(user))
+                .content(JsonUtil.writeValue(newMeal)))
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.toString()))
+                .andExpect(jsonPath("$.detail").value("Meal with this date and time already exists"));
     }
 
     @Test
